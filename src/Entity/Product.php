@@ -20,7 +20,7 @@ class Product
     private ?string $sku = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $price_excvar = null;
+    private ?float $price_excvat = null;
 
     public function getId(): ?int
     {
@@ -58,14 +58,14 @@ class Product
         return $this;
     }
 
-    public function getPriceExcvar(): ?float
+    public function getPriceExcvat(): ?float
     {
-        return $this->price_excvar;
+        return $this->price_excvat;
     }
 
-    public function setPriceExcvar(?float $price_excvar): static
+    public function setPriceExcvat(?float $price_excvat): static
     {
-        $this->price_excvar = $price_excvar;
+        $this->price_excvat = $price_excvat;
 
         return $this;
     }
