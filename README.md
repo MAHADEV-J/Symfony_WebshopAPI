@@ -57,10 +57,10 @@ Ik heb opgezocht dat een SKU meestal tussen de 8 tot 12 tekens lang is. De veldl
 
 ## Beschrijving van de code
 De code die ik zelf geschreven heb bestaat eigenlijk maar uit vier bestanden, afgezien van de Migration (zie hierboven onder Database-instellingen):
-`/src/Entity/Product.php`
-`/src/Repository/ProductRepository.php`
-`/src/Controller/ProductController.php`
-`/src/Service/CartService.php`
+- `/src/Entity/Product.php`
+- `/src/Repository/ProductRepository.php`
+- `/src/Controller/ProductController.php`
+- `/src/Service/CartService.php`
 
 `Product` en `ProductRepository` bestaan uit door Symfony automatisch gegenereerde code waar ik zelf niets aan veranderd heb (afgezien van het verbeteren van typfouten). Het echte werk van de API wordt in `ProductController` en `CartService` gedaan (zie hieronder).
 
@@ -75,7 +75,6 @@ De functie `addToCart()` valideert eerst de input door te controleren of het pro
 Na de validatie wordt de functie `addProduct` aangeroepen om de producten uit de POST request body in de sessie te zetten. Vervolgens wordt de inhoud van de sessie weer opgehaald middels de functie `getContents`, waarna er nog wat bewerkingen op gedaan worden door de `ProductController`. Ik heb bewust gekozen voor deze opzet met een Service, waarbij de `CartService` zich bezighoudt met het toevoegen van producten aan de sessie en de `ProductController` alleen met het afhandelen en doorgeven van de request body en het in elkaar zetten van de uiteindelijke JSON-output voor de response body. Dit heb ik gedaan omdat dit een nettere scheiding van verantwoordelijkheden (separation of concerns) is, zodat de code overzichtelijk blijft, en ook omdat ik per se wilde dat de response een nette boodschap plus een uitgebreidere winkelwagen zou bevatten, met daarin ook de subtotalen en totalen en niet alleen maar een lijst van hoeveel je van elk product in de winkelwagen hebt.  
 
 ### Redis
-
 Ik heb ervoor gekozen Redis niet te gebruiken, maar de winkelwagen rechtstreeks in de sessie op te slaan. Dit heb ik gedaan uit tijdsoverwegingen, omdat het moeilijker dan gedacht bleek om Redis te installeren onder Windows en ik geen WSL heb. Ik denk dat ik wel geweten zou hebben hoe het zou moeten. Je zou dan `config/packages/framework.yaml` als volgt moeten bijwerken:
 ```
 framework:
