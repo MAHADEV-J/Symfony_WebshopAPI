@@ -49,7 +49,28 @@ Ik heb een Migration gemaakt om de databasetabel op te zetten, deze is te vinden
 
 Symfony biedt niet zoals Laravel seeders om de databasetabel automatisch te vullen, daarom heb ik dat handmatig gedaan. Hieronder staat een SQL-script dat je kunt draaien om de tabel te vullen:
 ```
-# hier SQL graag
+INSERT INTO `product` (`id`, `name`, `sku`, `price_excvat`)
+VALUES
+(NULL, 'Overhemd heren button-up lange mouwen donkerblauw S', 'M-0001-NVY-S', '12'),
+(NULL, 'Overhemd heren button-up lange mouwen lichtblauw S', 'M-0001-SKY-S', '23'),
+(NULL, 'Overhemd heren button-up lange mouwen wit S', 'M-0001-WHT-S', '23'),
+(NULL, 'Overhemd heren button-up lange mouwen donkerblauw M', 'M-0001-NVY-M', '23'),
+(NULL, 'Overhemd heren button-up lange mouwen lichtblauw M', 'M-0001-SKY-M', '23'),
+(NULL, 'Overhemd heren button-up lange mouwen wit M', 'M-0001-WHT-M', '23'),
+(NULL, 'Overhemd heren button-up lange mouwen donkerblauw L', 'M-0001-NVY-L', '23'),
+(NULL, 'Overhemd heren button-up lange mouwen lichtblauw L', 'M-0001-SKY-L', '23'),
+(NULL, 'Overhemd heren button-up lange mouwen wit L', 'M-0001-WHT-L', '23'),
+(NULL, 'Overhemd heren button-up korte mouwen blauw M', 'M-0002-BLU-M', '23'),
+(NULL, 'Overhemd heren button-up korte mouwen wit M', 'M-0002-WHT-M', '23'),
+(NULL, 'Overhemd heren button-up korte mouwen blauw L', 'M-0002-BLU-L', '23'),
+(NULL, 'Overhemd heren button-up korte mouwen wit L', 'M-0002-WHT-L', '23'),
+(NULL, 'Spijkerbroek heren lichtblauw S', 'M-0003-SKY-S', '23'),
+(NULL, 'Spijkerbroek heren lichtblauw M', 'M-0003-SKY-M', '23'),
+(NULL, 'Broek katoen heren beige M', 'M-0004-BEI-M', '23'),
+(NULL, 'Broek katoen heren beige L', 'M-0004-BEI-L', '23'),
+(NULL, 'Broek katoen heren zwart L', 'M-0004-BLK-L', '23'),
+(NULL, 'Broek katoen heren zwart XL', 'M-0004-BLK-XL', '23'),
+(NULL, 'Boxershort heren grijs L', 'M-0005-GRY-L', '23')
 ```
 
 Het id, de naam en het SKU zijn allemaal uniek. Behalve het id zijn dit geen UNIQUE constraints, ik heb er gewoon zelf voor gezorgd dat ze uniek zijn. In een productie-applicatie zou ik dit wel netjes doen door middel van UNIQUE constraints.  
