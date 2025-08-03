@@ -65,10 +65,16 @@ De code die ik zelf geschreven heb bestaat eigenlijk maar uit vier bestanden, af
 `Product` en `ProductRepository` bestaan uit door Symfony automatisch gegenereerde code waar ik zelf niets aan veranderd heb (afgezien van het verbeteren van typfouten). Het echte werk van de API wordt in `ProductController` en `CartService` gedaan (zie hieronder).
 
 ## Opmerkingen over de architectuur
-De API-endpoints en de functies om ze af te handelen worden gedefinieerd in `ProductController`.  
-De functie `index()` is puur een mapping van de databaselaag (omgezet naar een `Product`-object middels de Doctrine ORM) naar de gewenste JSON-output, afgezien van `priceIncVat` wat hier berekend wordt.  
-De functie `addToCart()` valideert eerst de input door te controleren of het product-id daadwerkelijk bestaat. Ik heb er hier bewust voor gekozen om geen Validator te gebruiken, omdat er maar één ding gecontroleerd hoeft te worden. Wat mij betreft geldt: hoe eenvoudiger hoe beter, en ik denk dat dit teveel tijd gekost zou hebben voor zoiets eenvoudigs.  
+De API-endpoints en de functies om ze af te handelen worden gedefinieerd in `ProductController`.
+
+### Functies
+De functie `index()` is puur een mapping van de databaselaag (omgezet naar een `Product`-object middels de Doctrine ORM) naar de gewenste JSON-output, afgezien van `priceIncVat` wat hier berekend wordt.
+
+De functie `addToCart()` valideert eerst de input door te controleren of het product-id daadwerkelijk bestaat. Ik heb er hier bewust voor gekozen om geen Validator te gebruiken, omdat er maar één ding gecontroleerd hoeft te worden. Wat mij betreft geldt: hoe eenvoudiger hoe beter, en ik denk dat dit teveel tijd gekost zou hebben voor zoiets eenvoudigs.
+
 Na de validatie wordt de functie `addProduct` aangeroepen om de producten uit de POST request body in de sessie te zetten. Vervolgens wordt de inhoud van de sessie weer opgehaald middels de functie `getContents`, waarna er nog wat bewerkingen op gedaan worden door de `ProductController`. Ik heb bewust gekozen voor deze opzet met een Service, waarbij de `CartService` zich bezighoudt met het toevoegen van producten aan de sessie en de `ProductController` alleen met het afhandelen en doorgeven van de request body en het in elkaar zetten van de uiteindelijke JSON-output voor de response body. Dit heb ik gedaan omdat dit een nettere scheiding van verantwoordelijkheden (separation of concerns) is, zodat de code overzichtelijk blijft, en ook omdat ik per se wilde dat de response een nette boodschap plus een uitgebreidere winkelwagen zou bevatten, met daarin ook de subtotalen en totalen en niet alleen maar een lijst van hoeveel je van elk product in de winkelwagen hebt.  
+
+### Redis
 
 Ik heb ervoor gekozen Redis niet te gebruiken, maar de winkelwagen rechtstreeks in de sessie op te slaan. Dit heb ik gedaan uit tijdsoverwegingen, omdat het moeilijker dan gedacht bleek om Redis te installeren onder Windows en ik geen WSL heb. Ik denk dat ik wel geweten zou hebben hoe het zou moeten. Je zou dan `config/packages/framework.yaml` als volgt moeten bijwerken:
 ```
