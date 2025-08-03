@@ -34,7 +34,7 @@ final class ProductController extends AbstractController
                  'name' => $product->getName(),
                  'sku' => $product->getSku(),
                  'priceExcVat' => $product->getPriceExcvat(),
-                 'priceIncVat' => $product->getPriceExcvat() * 1.21
+                 'priceIncVat' => round($product->getPriceExcvat() * 1.21, 2)
              ];
         }
         
@@ -73,10 +73,10 @@ final class ProductController extends AbstractController
                        $data[] = [
                        'name' => $cart_item['product']->getName(),
                        'priceExcVat' => $cart_item['product']->getPriceExcvat(),
-                       'priceIncVat' => $cart_item['product']->getPriceExcVat() * 1.21,
+                       'priceIncVat' => round($cart_item['product']->getPriceExcVat() * 1.21, 2),
                        'quantity' => $cart_item['quantity'],
                        'subtotalExcVat' => $cart_item['product']->getPriceExcVat() * $cart_item['quantity'],
-                       'subtotalIncVat' => $cart_item['product']->getPriceExcVat() * 1.21 * $cart_item['quantity']
+                       'subtotalIncVat' => round($cart_item['product']->getPriceExcVat() * 1.21 * $cart_item['quantity'], 2)
                    ];
                    }
               }
@@ -88,7 +88,7 @@ final class ProductController extends AbstractController
                       'products' => $data
                   ],
                   'totalExcVat' => $cart['totalExcVat'],
-                  'totalIncVat' => $cart['totalExcVat'] * 1.21
+                  'totalIncVat' => round($cart['totalExcVat'] * 1.21, 2)
               ]);
          }
          catch (\Exception $e)

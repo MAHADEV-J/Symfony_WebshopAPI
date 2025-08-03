@@ -8,7 +8,6 @@ use App\Entity\Product;
 class CartService
 {   
     private RequestStack $requestStack;
-    private $cartBag;
     
     public function __construct(RequestStack $requestStack)
     {
@@ -34,8 +33,6 @@ class CartService
          }
          
          $session->set('cart', $cart);
-         
-         //$this->requestStack->session = $session;
     }
     
     public function getContents(): array
