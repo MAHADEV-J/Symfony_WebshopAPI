@@ -26,7 +26,6 @@ De API geeft een response terug in het volgende formaat:
 message: string,
 cart: {
     products: [
-    
         name: string,
         priceExcVat: number,
         priceIncVat: number,
